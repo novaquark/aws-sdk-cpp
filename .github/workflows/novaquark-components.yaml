@@ -14,7 +14,7 @@ jobs:
       - name: Build Directory
         run: mkdir build
       - name: Create project files
-        run: cmake .. -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/nq-aws-sdk-cpp -DBUILD_ONLY="aws-cpp-sdk-s3,aws-cpp-sdk-text-to-speech,aws-cpp-sdk-polly"
+        run: cmake .. -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/nq-aws-sdk-cpp -DBUILD_ONLY="aws-cpp-sdk-s3,aws-cpp-sdk-text-to-speech,aws-cpp-sdk-polly" -DVERSION=$(echo ${{ github.ref }} | cut -d'-' -f1 | sed 's/^v//')
         working-directory: build
       - name: Build
         run: make
