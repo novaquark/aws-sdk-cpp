@@ -17,8 +17,7 @@ jobs:
         run: |
           export VERSION=$(echo ${{ github.ref }} | cut -d'/' -f3 | cut -d'-' -f1 | sed 's/^v//')
           cmake .. -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/nq-aws-sdk-cpp \
-                   -DBUILD_ONLY="aws-cpp-sdk-s3;aws-cpp-sdk-text-to-speech;aws-cpp-sdk-polly" \
-                   -DCMAKE_PROJECT_VERSION=${VERSION}
+                   -DBUILD_ONLY="s3;text-to-speech;polly"
         working-directory: build
       - name: Build
         run: make
