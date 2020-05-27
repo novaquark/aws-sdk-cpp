@@ -265,6 +265,12 @@ namespace Model
      * <p> Input text to synthesize. If you specify <code>ssml</code> as the
      * <code>TextType</code>, follow the SSML format for the input text. </p>
      */
+    inline void SetEngine(const Aws::Polly::Model::Engine& value) { m_engineHasBeenSet = true; m_engine = value; }
+
+    /**
+     * <p> Input text to synthesize. If you specify <code>ssml</code> as the
+     * <code>TextType</code>, follow the SSML format for the input text. </p>
+     */
     inline void SetText(Aws::String&& value) { m_textHasBeenSet = true; m_text = std::move(value); }
 
     /**
@@ -278,6 +284,12 @@ namespace Model
      * <code>TextType</code>, follow the SSML format for the input text. </p>
      */
     inline SynthesizeSpeechRequest& WithText(const Aws::String& value) { SetText(value); return *this;}
+
+    /**
+     * <p> Input text to synthesize. If you specify <code>ssml</code> as the
+     * <code>TextType</code>, follow the SSML format for the input text. </p>
+     */
+    inline SynthesizeSpeechRequest& WithEngine(const Aws::Polly::Model::Engine& value) { SetEngine(value); return *this;}
 
     /**
      * <p> Input text to synthesize. If you specify <code>ssml</code> as the
@@ -450,6 +462,9 @@ namespace Model
 
     Aws::String m_text;
     bool m_textHasBeenSet;
+
+    Aws::Polly::Model::Engine m_engine;
+    bool m_engineHasBeenSet;
 
     TextType m_textType;
     bool m_textTypeHasBeenSet;

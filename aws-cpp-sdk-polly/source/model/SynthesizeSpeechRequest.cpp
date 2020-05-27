@@ -82,6 +82,12 @@ Aws::String SynthesizeSpeechRequest::SerializePayload() const
 
   }
 
+  if(m_engineHasBeenSet)
+  {
+   payload.WithString("Engine", Aws::String(m_engine == Aws::Polly::Model::Engine::neural ? "neural" : "standard"));
+
+  }
+
   if(m_textTypeHasBeenSet)
   {
    payload.WithString("TextType", TextTypeMapper::GetNameForTextType(m_textType));
