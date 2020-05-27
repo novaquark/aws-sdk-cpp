@@ -24,7 +24,7 @@ jobs:
                    -DBUILD_ONLY="s3;text-to-speech;polly"
         working-directory: build
       - name: Build
-        run: make
+        run: make -j
         working-directory: build
       - name: Copy artifacts
         run: make install
@@ -47,7 +47,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ./
-          asset_name: nq-aws-sdk-cpp.zip
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./nq-aws-sdk-cpp.zip
+          asset_name: nq-aws-sdk-cpp
           asset_content_type: application/zip
