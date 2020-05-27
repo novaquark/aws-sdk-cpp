@@ -4,7 +4,7 @@ on:
   push:
     # Sequence of patterns matched against refs/tags
     tags:
-      - "*"
+      - "1.6.*"
 
 jobs:
   build:
@@ -12,9 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install dev deps
-        uses: ryankurte/action-apt@v0.1.0
-        with:
-          packages: libcurl4-openssl-dev
+        run: |
+          sudo apt update -q
+          sudo apt install libcurl4-openssl-dev -yq
       - name: Build Directory
         run: mkdir build
       - name: Create project files
