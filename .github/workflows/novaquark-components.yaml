@@ -24,7 +24,7 @@ jobs:
                    -DBUILD_ONLY="s3;text-to-speech;polly"
         working-directory: build
       - name: Build
-        run: make -j
+        run: make -j 2
         working-directory: build
       - name: Copy artifacts
         run: make install
