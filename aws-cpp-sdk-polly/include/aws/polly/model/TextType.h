@@ -29,6 +29,12 @@ namespace Model
     ssml,
     text
   };
+  enum class Engine
+  {
+    NOT_SET,
+    standard,
+    neural
+  };
 
 namespace TextTypeMapper
 {
