@@ -1,0 +1,46 @@
+name: C/C++ CI
+
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+    - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build Directory
+      run: mkdir build
+    - name: Create project files
+      run: cmake .. -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/nq-aws-sdk-cpp -DBUILD_ONLY="aws-cpp-sdk-s3,aws-cpp-sdk-text-to-speech,aws-cpp-sdk-polly"
+      working-directory: build
+    - name: Build
+      run: make
+      working-directory: build
+    - name: Install artifacts
+      run: make install
+      working-directory: build
+    - name: Compress artifacts
+      run: zip -qr nq-aws-sdk-cpp.zip nq-aws-sdk-cpp/
+    - name: Create release
+      id: create_release
+      uses: actions/create-release@v1
+      env: 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: nq-aws-sdk-cpp-${{ github.ref }}-linux-amd64
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+    - name: Upload release asset
+      id: upload_release_asset
+      uses: actions/upload-release-asset@v1
+      env: 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./
+        asset_name: nq-aws-sdk-cpp.zip
+        asset_content_type: application/zip
